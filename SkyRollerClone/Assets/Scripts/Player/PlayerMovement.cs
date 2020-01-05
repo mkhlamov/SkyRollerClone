@@ -8,13 +8,19 @@ namespace SkyRollerClone.Player
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField]
-        private float _velocity = 20f;
+        private float _speed = 20f;
 
         #region Monobehaviour
         private void Update()
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * _velocity);
+            transform.Translate(Vector3.forward * Time.deltaTime * _speed);
         }
         #endregion
+
+        public void SetSpeed(float speed)
+        {
+            // Lerp here?
+            _speed = speed;
+        }
     }
 }
