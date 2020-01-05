@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SkyRollerClone.Input;
 
-namespace SkyRollerClone
+namespace SkyRollerClone.Player
 {
     public class PlayerInputController : MonoBehaviour
     {
