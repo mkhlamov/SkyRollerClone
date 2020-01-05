@@ -7,11 +7,13 @@ namespace SkyRollerClone {
     public class GameManager : Singleton<GameManager>
     {
         private PlayerMovement _playerMovement;
+        private PlayerController _playerController;
 
         // Start is called before the first frame update
         void Start()
         {
             _playerMovement = FindObjectOfType<PlayerMovement>();
+            _playerController = FindObjectOfType<PlayerController>();
         }
 
         public void StopPlayer()
@@ -21,7 +23,7 @@ namespace SkyRollerClone {
 
         public void GameLost()
         {
-            StopPlayer();
+            _playerController.ToggleDead();
         }
     }
 }
