@@ -8,10 +8,9 @@ namespace SkyRollerClone
     {
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnTriggerEnter Finish " + other.name + " " + other.tag);
             if (other.CompareTag("Player"))
             {
-                GameManager.Instance.StopPlayer();
+                GameManager.Instance.GameWon();
             }
         }
     }

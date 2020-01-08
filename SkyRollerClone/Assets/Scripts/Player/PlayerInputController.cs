@@ -35,8 +35,6 @@ namespace SkyRollerClone.Player
             {
                 _currentLegSpread -= GetLegSpreadDiff(swipeData);
                 _currentLegSpread = Mathf.Clamp01(_currentLegSpread);
-                Debug.Log("LegSpreadDiff = " + GetLegSpreadDiff(swipeData));
-                Debug.Log("_currentLegSpread = " + _currentLegSpread);
                 _animator.SetFloat("LegAngle", _currentLegSpread);
             }
         }
@@ -44,9 +42,7 @@ namespace SkyRollerClone.Player
         private float GetLegSpreadDiff(SwipeData swipeData)
         {
             float swipeDist = (swipeData.end.x - swipeData.start.x);
-            Debug.Log("swipeDist = " + swipeDist);
             float truncated = swipeDist / 100f;
-            Debug.Log("truncated = " + truncated);
             return Mathf.Clamp(truncated, -1f, 1f);
         }
     }

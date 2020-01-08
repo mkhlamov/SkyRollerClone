@@ -15,12 +15,31 @@ namespace SkyRollerClone.Player
         {
             transform.Translate(Vector3.forward * Time.deltaTime * _speed);
         }
+
+        private void OnEnable()
+        {
+            GameManager.Instance.OnGameWon += StopPlayer;
+        }
+
+        private void OnDisable()
+        {
+            if (!GameManager.IsInitialized)
+            {
+                return;
+            }
+            GameManager.Instance.OnGameWon -= StopPlayer;
+        }
         #endregion
 
         public void SetSpeed(float speed)
         {
             // Lerp here?
             _speed = speed;
+        }
+
+        private void StopPlayer()
+        {
+            SetSpeed(0f);
         }
     }
 }
