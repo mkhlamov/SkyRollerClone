@@ -10,6 +10,7 @@ namespace SkyRollerClone {
         public event Action OnGameWon;
         public event Action OnGameLost;
         public event Action OnNotStarted;
+        public event Action<int> OnLevelUpdated;
 
         [SerializeField]
         private Transform _startBlock;
@@ -51,6 +52,11 @@ namespace SkyRollerClone {
         public GameState GetGameState()
         {
             return _currentGameState;
+        }
+
+        public int GetCurrentLevel()
+        {
+            return _currentLevel;
         }
     }
 
