@@ -11,6 +11,11 @@ namespace SkyRollerClone {
         public event Action OnGameLost;
         public event Action OnNotStarted;
 
+        [SerializeField]
+        private Transform _startBlock;
+        [SerializeField]
+        private Transform _endBlock;
+
         private PlayerMovement _playerMovement;
         private PlayerController _playerController;
 
@@ -36,6 +41,16 @@ namespace SkyRollerClone {
         {
             _currentGameState = GameState.LOST;
             OnGameLost?.Invoke();
+        }
+
+        public float GetProgress()
+        {
+            return (_playerMovement.gameObject.transform.position.z - _startBlock.position.z) / (_endBlock.position.z - _startBlock.position.z);
+        }
+
+        public GameState GetGameState()
+        {
+            return _currentGameState;
         }
     }
 
