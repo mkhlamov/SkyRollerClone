@@ -19,6 +19,7 @@ namespace SkyRollerClone {
 
         private PlayerMovement _playerMovement;
         private PlayerController _playerController;
+        private LevelBuilder _levelBuilder;
 
         private int _currentLevel = 0;
         private GameState _currentGameState = GameState.NOTSTARTED;
@@ -28,6 +29,9 @@ namespace SkyRollerClone {
         {
             _playerMovement = FindObjectOfType<PlayerMovement>();
             _playerController = FindObjectOfType<PlayerController>();
+            _levelBuilder = FindObjectOfType<LevelBuilder>();
+            
+            _levelBuilder.BuildLevel();
             SetGameNotStarted();
         }
 
