@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SkyRollerClone
+namespace SkyRollerClone.UI
 {
     [RequireComponent(typeof(Slider))]
     public class LevelProgressUpdater : MonoBehaviour

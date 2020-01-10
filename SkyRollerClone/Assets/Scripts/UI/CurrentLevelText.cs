@@ -1,25 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace SkyRollerClone
+namespace SkyRollerClone.UI
 {
     public class CurrentLevelText : MonoBehaviour
     {
+        [SerializeField]
         private Text _text;
 
-        private void Awake()
-        {
-            _text = GetComponent<Text>();
-        }
         private void OnEnable()
         {
-            _text.text = "Level " + GameManager.Instance.GetCurrentLevel().ToString();
+            if (_text == null)
+            {
+                _text = GetComponent<Text>();
+            }
+            UpdateText(GameManager.Instance.GetCurrentLevel());
             GameManager.Instance.OnLevelUpdated += UpdateText;
         }
 
         private void OnDisable()
         {
-            GameManager.Instance.OnLevelUpdated -= UpdateText;
+            if (GameManager.IsInitialized)
+            {
+                GameManager.Instance.OnLevelUpdated -= UpdateText;
+            }
         }
 
         private void UpdateText(int v)

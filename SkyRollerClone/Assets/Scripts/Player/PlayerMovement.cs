@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SkyRollerClone.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField]
-        private float _speed = 20f;
+        private float _speed = 3f;
 
         #region Monobehaviour
         private void Update()
@@ -37,7 +34,12 @@ namespace SkyRollerClone.Player
             _speed = speed;
         }
 
-        private void StopPlayer()
+        public void StartMoving()
+        {
+            _speed = 3f;
+        }
+
+        public void StopPlayer()
         {
             SetSpeed(0f);
         }

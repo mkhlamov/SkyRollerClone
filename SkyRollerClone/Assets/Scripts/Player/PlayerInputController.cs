@@ -10,6 +10,8 @@ namespace SkyRollerClone.Player
         private float _currentLegSpread = 0f;
         [SerializeField]
         private Animator _animator;
+        [SerializeField]
+        private float _swipeSensitivity = 100f;
         // Start is called before the first frame update
         void Awake()
         {
@@ -33,6 +35,9 @@ namespace SkyRollerClone.Player
                 return;
             } else
             {
+                Debug.Log("LegSpreadDiff = " + GetLegSpreadDiff(swipeData));
+                Debug.Log("_currentLegSpread = " + _currentLegSpread);
+                Debug.Log("---------------------");
                 _currentLegSpread -= GetLegSpreadDiff(swipeData);
                 _currentLegSpread = Mathf.Clamp01(_currentLegSpread);
                 _animator.SetFloat("LegAngle", _currentLegSpread);
@@ -42,7 +47,7 @@ namespace SkyRollerClone.Player
         private float GetLegSpreadDiff(SwipeData swipeData)
         {
             float swipeDist = (swipeData.end.x - swipeData.start.x);
-            float truncated = swipeDist / 100f;
+            float truncated = swipeDist / _swipeSensitivity;
             return Mathf.Clamp(truncated, -1f, 1f);
         }
     }

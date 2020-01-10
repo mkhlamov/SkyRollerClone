@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SkyRollerClone.Input
@@ -14,13 +12,7 @@ namespace SkyRollerClone.Input
         private float _minSwipeDist = 20f;
         
         public static event Action<SwipeData> OnSwipe = delegate { };
-        // Start is called before the first frame update
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
         void Update()
         {
             foreach (Touch touch in UnityEngine.Input.touches)

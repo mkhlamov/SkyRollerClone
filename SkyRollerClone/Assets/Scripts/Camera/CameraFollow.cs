@@ -45,6 +45,7 @@ namespace SkyRollerClone
         private void OnEnable()
         {
             GameManager.Instance.OnGameWon += HandeleWin;
+            GameManager.Instance.OnNotStarted += HandleNotStarted;
         }
 
         private void OnDisable()
@@ -52,6 +53,7 @@ namespace SkyRollerClone
             if (GameManager.IsInitialized)
             {
                 GameManager.Instance.OnGameWon -= HandeleWin;
+                GameManager.Instance.OnNotStarted -= HandleNotStarted;
             }
         }
         #endregion
@@ -67,9 +69,16 @@ namespace SkyRollerClone
             needToFollow = false;
         }
 
+        #region Private Methods
         private void HandeleWin()
         {
             Unfollow();
+        }
+
+        private void HandleNotStarted()
+        {
+            gameObject.transform.rotation = Quaternion.identity;
+            Follow();
         }
 
         private void MoveToTarget()
@@ -92,5 +101,6 @@ namespace SkyRollerClone
                 transform.LookAt(_lookAtTargetFinish);
             }
         }
+        #endregion
     }
 }

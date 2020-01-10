@@ -20,7 +20,7 @@ namespace SkyRollerClone
             if (other.CompareTag("Player"))
             {
                 _audioSource.Play();
-                GameManager.Instance.GameLost();
+                GameManager.Instance.SetGameLost();
             }
         }
         #endregion

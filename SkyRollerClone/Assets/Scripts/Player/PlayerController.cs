@@ -17,8 +17,6 @@ namespace SkyRollerClone.Player
         [SerializeField]
         private Collider[] _colliders;
 
-        private bool _dead;
-
         #region Monobehaviour
         private void Awake()
         {
@@ -75,6 +73,11 @@ namespace SkyRollerClone.Player
                 c.enabled = e;
             }
         }
+
+        public void GoToStart()
+        {
+            gameObject.transform.position = Vector3.zero;
+        }
         #endregion
 
         #region Private Methods
@@ -102,18 +105,17 @@ namespace SkyRollerClone.Player
             }
         }
 
-        private void ToggleDead()
+        private void ToggleDead(bool e)
         {
-            _dead = !_dead;
-
-            if (_dead)
+            if (e)
             {
                 Rigidbody rb = _animatedModel.GetComponent<Rigidbody>();
                 Vector3 velocity = (rb != null) ? rb.velocity : (0.1f * Vector3.forward);
                 CopyTransformData(_animatedModel.transform, _ragdoll.transform, velocity);
+                ResetLegs();
             }
-            _ragdoll.SetActive(_dead);
-            _animatedModel.SetActive(!_dead);
+            _ragdoll.SetActive(e);
+            _animatedModel.SetActive(!e);
         }
 
         private void HandeleWin()
@@ -125,14 +127,22 @@ namespace SkyRollerClone.Player
 
         private void HandleLose()
         {
-            ToggleDead();
+            ToggleDead(true);
         }
 
         private void HandleNotStarted()
         {
+            ToggleDead(false);
+            ChangeCollidersActive(true);
             DisableInput();
+            ResetLegs();
             _animator.ResetTrigger("Excited");
             _animator.SetTrigger("Rolling");
+        }
+
+        private void ResetLegs()
+        {
+            _animator.SetFloat("LegAngle", 0f);
         }
         #endregion
     }

@@ -10,7 +10,7 @@ namespace SkyRollerClone
         {
             if (other.CompareTag("Player"))
             {
-                GameManager.Instance.GameWon();
+                GameManager.Instance.SetGameWon();
             }
         }
     }

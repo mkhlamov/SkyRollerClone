@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using SkyRollerClone.Player;
-using System;
+using SkyRollerClone.Input;
 
 namespace SkyRollerClone {
     public class GameManager : Singleton<GameManager>
@@ -10,6 +9,7 @@ namespace SkyRollerClone {
         public event Action OnGameWon;
         public event Action OnGameLost;
         public event Action OnNotStarted;
+        public event Action OnGameRunning;
         public event Action<int> OnLevelUpdated;
 
         [SerializeField]
@@ -28,17 +28,26 @@ namespace SkyRollerClone {
         {
             _playerMovement = FindObjectOfType<PlayerMovement>();
             _playerController = FindObjectOfType<PlayerController>();
-            _currentGameState = GameState.NOTSTARTED;
-            OnNotStarted?.Invoke();
+            SetGameNotStarted();
         }
 
-        public void GameWon()
+        private void OnEnable()
+        {
+            SwipeDetector.OnSwipe += SwipeHandler;
+        }
+
+        private void OnDisable()
+        {
+            SwipeDetector.OnSwipe -= SwipeHandler;
+        }
+
+        public void SetGameWon()
         {
             _currentGameState = GameState.WON;
             OnGameWon?.Invoke();
         }
 
-        public void GameLost()
+        public void SetGameLost()
         {
             _currentGameState = GameState.LOST;
             OnGameLost?.Invoke();
@@ -54,9 +63,37 @@ namespace SkyRollerClone {
             return _currentGameState;
         }
 
+        public void StartNewLevel()
+        {
+            SetGameNotStarted();
+        }
+
         public int GetCurrentLevel()
         {
             return _currentLevel;
+        }
+
+        private void SetGameNotStarted()
+        {
+            _currentGameState = GameState.NOTSTARTED;
+            _playerController.GoToStart();
+            _playerMovement.StopPlayer();
+            OnNotStarted?.Invoke();
+        }
+
+        private void GameRunning()
+        {
+            _currentGameState = GameState.RUNNING;
+            _playerMovement.StartMoving();
+            OnGameRunning?.Invoke();
+        }
+
+        private void SwipeHandler(SwipeData d)
+        {
+            if (_currentGameState == GameState.NOTSTARTED)
+            {
+                GameRunning();
+            }
         }
     }
 
