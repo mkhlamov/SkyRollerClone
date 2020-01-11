@@ -71,6 +71,7 @@ namespace SkyRollerClone.Player
             _rb.isKinematic = true;
             gameObject.transform.position = Vector3.zero;
             gameObject.transform.rotation = Quaternion.identity;
+            ResetLegs();
             _rb.isKinematic = false;
         }
         #endregion
@@ -104,7 +105,7 @@ namespace SkyRollerClone.Player
         {
             if (e)
             {
-                CopyTransformData(_animatedModel.transform, _ragdoll.transform, _rb.velocity);
+                CopyTransformData(_animatedModel.transform, _ragdoll.transform, _rb.velocity + Vector3.down * 0.01f);
                 ResetLegs();
             }
             _rb.isKinematic = e;
@@ -135,6 +136,7 @@ namespace SkyRollerClone.Player
         private void ResetLegs()
         {
             _animator.SetFloat("LegAngle", 0f);
+            _playerInputController.ResetLegSpread();
         }
         #endregion
     }

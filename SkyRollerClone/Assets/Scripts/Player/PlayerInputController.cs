@@ -7,6 +7,7 @@ namespace SkyRollerClone.Player
 {
     public class PlayerInputController : MonoBehaviour
     {
+        [SerializeField]
         private float _currentLegSpread = 0f;
         [SerializeField]
         private Animator _animator;
@@ -26,6 +27,11 @@ namespace SkyRollerClone.Player
         private void OnDisable()
         {
             SwipeDetector.OnSwipe -= LegSpreadOnSwipe;
+        }
+
+        public void ResetLegSpread()
+        {
+            _currentLegSpread = 0f;
         }
 
         private void LegSpreadOnSwipe(SwipeData swipeData)
