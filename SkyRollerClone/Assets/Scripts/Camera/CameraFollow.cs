@@ -93,7 +93,6 @@ namespace SkyRollerClone
             if (_tickFinish < 1f)
             {
                 _tickFinish += Time.deltaTime / _timeToMoveFinish;
-                Debug.Log("_tick = " + _tickFinish);
 
                 Vector3 p1 = Vector3.Lerp(transform.position, _target.position + _middlePointOffsetFinish, _tickFinish);
                 Vector3 p2 = Vector3.Lerp(_target.position + _middlePointOffsetFinish, _target.position + _endPointOffsetFinish, _tickFinish);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using SkyRollerClone.Player;
 using SkyRollerClone.Input;
@@ -13,14 +14,17 @@ namespace SkyRollerClone {
         public event Action<int> OnLevelUpdated;
 
         [SerializeField]
-        private Transform _startBlock;
+        public Transform _startPos;
         [SerializeField]
-        private Transform _endBlock;
+        public Transform _endPos;
+        [SerializeField]
+        private List<LevelInfo> _levelInfos;
 
         private PlayerMovement _playerMovement;
         private PlayerController _playerController;
         private LevelBuilder _levelBuilder;
 
+        [SerializeField]
         private int _currentLevel = 0;
         private GameState _currentGameState = GameState.NOTSTARTED;
 
@@ -30,8 +34,8 @@ namespace SkyRollerClone {
             _playerMovement = FindObjectOfType<PlayerMovement>();
             _playerController = FindObjectOfType<PlayerController>();
             _levelBuilder = FindObjectOfType<LevelBuilder>();
-            
-            _levelBuilder.BuildLevel();
+
+            BuildLevel();
             SetGameNotStarted();
         }
 
@@ -59,7 +63,7 @@ namespace SkyRollerClone {
 
         public float GetProgress()
         {
-            return (_playerMovement.gameObject.transform.position.z - _startBlock.position.z) / (_endBlock.position.z - _startBlock.position.z);
+            return (_playerMovement.gameObject.transform.position.z) / (_endPos.position.z);
         }
 
         public GameState GetGameState()
@@ -69,6 +73,17 @@ namespace SkyRollerClone {
 
         public void StartNewLevel()
         {
+            if (_currentLevel == _levelInfos.Count - 1)
+            {
+                _currentLevel = 0;
+            }
+            else
+            {
+                _currentLevel += 1;
+            }
+            OnLevelUpdated?.Invoke(_currentLevel);
+
+            BuildLevel();
             SetGameNotStarted();
         }
 
@@ -98,6 +113,20 @@ namespace SkyRollerClone {
             {
                 GameRunning();
             }
+        }
+
+        private bool BuildLevel()
+        {
+            _endPos = _levelBuilder.BuildLevel(_levelInfos[_currentLevel]);
+            if (_endPos != null)
+            {
+                Debug.Log("Level " + _currentLevel + " built");
+            }
+            else
+            {
+                Debug.LogError("[GameManager] Couldn't biuld level " + (_currentLevel));
+            }
+            return _endPos != null;
         }
     }
 

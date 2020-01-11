@@ -1,32 +1,73 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SkyRollerClone {
     public class LevelBuilder : MonoBehaviour
     {
+        //[SerializeField]
+        //private GameObject _blockStartPrefab;
         [SerializeField]
-        private GameObject _blockStartPrefab;
+        private GameObject _blockStart;
         [SerializeField]
         private GameObject _blockFinishPrefab;
         [SerializeField]
-        private GameObject _blockEasyPrefab;
+        private List<GameObject> _blockEasyPrefabs;
         [SerializeField]
-        private GameObject _blockMediumPrefab;
+        private List<GameObject> _blockMediumPrefabs;
         [SerializeField]
-        private GameObject _blockHardPrefab;
+        private List<GameObject> _blockHardPrefabs;
         [SerializeField]
-        private int _numberOfBlocks = 1;
+        private List<GameObject> _instantiatedBlocks;
 
-        public void BuildLevel()
+        // Return End collider position
+        public Transform BuildLevel(LevelInfo levelInfo)
         {
-            GameObject startBlock = Instantiate(_blockStartPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
-            Transform exit = startBlock.GetComponent<Block>()._exit;
-
-            for (int i = 0; i < _numberOfBlocks; i++)
+            float levelInfoProbSum = levelInfo._easyBlockProb + levelInfo._mediumBlockProb + levelInfo._hardBlockProb;
+            if (levelInfoProbSum != 1.0f)
             {
-                exit = AddBlock(_blockEasyPrefab, exit);
+                Debug.Log(levelInfoProbSum);
+                Debug.Log(levelInfoProbSum != 1.0f);
+                Debug.LogError("[LevelBuilder] Level " + levelInfo.name + " doesn't have correct probabilities!");
+                return null;
+            }
+            ClearPreviousLevel();
+            //GameObject startBlock = Instantiate(_blockStartPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
+            Transform exit = _blockStart.GetComponent<Block>()._exit;
+
+            for (int i = 0; i < levelInfo.numberOfBlocks; i++)
+            {
+                float rnd = Random.Range(0f, 1f);
+                GameObject chosenPrefab;
+                if (rnd < levelInfo._easyBlockProb)
+                {
+                    chosenPrefab = ChooseRandomPrefabFromList(_blockEasyPrefabs);
+                } else if (levelInfo._easyBlockProb < rnd && rnd < (levelInfo._easyBlockProb + levelInfo._mediumBlockProb))
+                {
+                    chosenPrefab = ChooseRandomPrefabFromList(_blockMediumPrefabs);
+                } else
+                {
+                    chosenPrefab = ChooseRandomPrefabFromList(_blockHardPrefabs);
+                }
+                exit = AddBlock(chosenPrefab, exit);
             }
 
             AddBlock(_blockFinishPrefab, exit);
+            return _instantiatedBlocks[_instantiatedBlocks.Count - 1].GetComponent<Block>().GetFinishPos();
+        }
+
+        #region Private Methods
+        private GameObject ChooseRandomPrefabFromList(List<GameObject> l)
+        {
+            return l[Random.Range(0, l.Count)];
+        }
+
+        private void ClearPreviousLevel()
+        {
+            foreach (GameObject go in _instantiatedBlocks)
+            {
+                Destroy(go);
+            }
+            _instantiatedBlocks.Clear();
         }
 
         // Returns new exit
@@ -34,6 +75,7 @@ namespace SkyRollerClone {
         {
             GameObject newBlock = Instantiate(prefab, gameObject.transform);
             MatchBlocks(exit, newBlock.GetComponent<Block>()._enter);
+            _instantiatedBlocks.Add(newBlock);
             return newBlock.GetComponent<Block>()._exit;
         }
 
@@ -51,5 +93,6 @@ namespace SkyRollerClone {
         {
             return Vector3.Angle(Vector3.forward, v) * Mathf.Sign(v.x);
         }
+        #endregion
     }
 }

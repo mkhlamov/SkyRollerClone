@@ -35,9 +35,6 @@ namespace SkyRollerClone.Player
                 return;
             } else
             {
-                Debug.Log("LegSpreadDiff = " + GetLegSpreadDiff(swipeData));
-                Debug.Log("_currentLegSpread = " + _currentLegSpread);
-                Debug.Log("---------------------");
                 _currentLegSpread -= GetLegSpreadDiff(swipeData);
                 _currentLegSpread = Mathf.Clamp01(_currentLegSpread);
                 _animator.SetFloat("LegAngle", _currentLegSpread);

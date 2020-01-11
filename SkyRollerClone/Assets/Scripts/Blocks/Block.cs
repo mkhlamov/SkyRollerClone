@@ -8,5 +8,18 @@ namespace SkyRollerClone
         public Transform _enter;
         [SerializeField]
         public Transform _exit;
+        [SerializeField]
+        public bool isFinish;
+
+        public Transform GetFinishPos()
+        {
+            if (isFinish)
+            {
+                return GetComponentInChildren<Finish>().transform;
+            } else
+            {
+                return null;
+            }
+        }
     }
 }

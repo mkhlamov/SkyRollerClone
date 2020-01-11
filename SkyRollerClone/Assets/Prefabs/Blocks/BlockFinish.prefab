@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enter: {fileID: 6115246286369555225}
   _exit: {fileID: 1426866015477263167}
+  isFinish: 1
 --- !u!1 &7398287041998881215
 GameObject:
   m_ObjectHideFlags: 0

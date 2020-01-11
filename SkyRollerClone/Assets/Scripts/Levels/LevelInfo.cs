@@ -1,26 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SkyRollerClone
 {
+    [CreateAssetMenu(fileName = "LevelInfo", menuName = "LevelInfo", order = 51)]
     public class LevelInfo : ScriptableObject
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-    }
-
-    public enum BlockDifficulty
-    {
-        EASY,
-        MEDIUM,
-        HARD
+        public int numberOfBlocks;
+        public float _easyBlockProb;
+        public float _mediumBlockProb;
+        public float _hardBlockProb;
     }
 }
