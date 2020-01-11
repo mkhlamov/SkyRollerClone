@@ -70,6 +70,7 @@ namespace SkyRollerClone.Player
         {
             _rb.isKinematic = true;
             gameObject.transform.position = Vector3.zero;
+            gameObject.transform.rotation = Quaternion.identity;
             _rb.isKinematic = false;
         }
         #endregion

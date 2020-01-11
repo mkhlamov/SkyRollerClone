@@ -1614,6 +1614,7 @@ MonoBehaviour:
   - {fileID: 8161098895146833154, guid: 6d00e1b010f2b614796c3564c54d741e, type: 3}
   _blockMediumPrefabs:
   - {fileID: 8447890778655225582, guid: 830a63d76e37bd7479be2b19c39ba07f, type: 3}
+  - {fileID: 8447890778655225582, guid: da0a98a43ce763847a1e687538bdb443, type: 3}
   _blockHardPrefabs:
   - {fileID: 8447890778655225582, guid: 830a63d76e37bd7479be2b19c39ba07f, type: 3}
   _instantiatedBlocks: []
@@ -2038,6 +2039,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976922468475796891, guid: a4485bfe4cff88141a820839d4ded35f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 976922469956888210, guid: a4485bfe4cff88141a820839d4ded35f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 976922469962454146, guid: a4485bfe4cff88141a820839d4ded35f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 976922468564801113, guid: a4485bfe4cff88141a820839d4ded35f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4485bfe4cff88141a820839d4ded35f, type: 3}
