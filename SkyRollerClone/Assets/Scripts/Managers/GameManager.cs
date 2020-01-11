@@ -95,8 +95,8 @@ namespace SkyRollerClone {
         private void SetGameNotStarted()
         {
             _currentGameState = GameState.NOTSTARTED;
-            _playerController.GoToStart();
             _playerMovement.StopPlayer();
+            _playerController.GoToStart();
             OnNotStarted?.Invoke();
         }
 
@@ -118,11 +118,7 @@ namespace SkyRollerClone {
         private bool BuildLevel()
         {
             _endPos = _levelBuilder.BuildLevel(_levelInfos[_currentLevel]);
-            if (_endPos != null)
-            {
-                Debug.Log("Level " + _currentLevel + " built");
-            }
-            else
+            if (_endPos == null)
             {
                 Debug.LogError("[GameManager] Couldn't biuld level " + (_currentLevel));
             }

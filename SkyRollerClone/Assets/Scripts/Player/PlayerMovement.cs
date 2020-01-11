@@ -5,12 +5,20 @@ namespace SkyRollerClone.Player
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField]
+        private float _defaultSpeed = 3f;
+        [SerializeField]
         private float _speed = 3f;
+        private Rigidbody _rb;
 
         #region Monobehaviour
-        private void Update()
+
+        private void Awake()
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * _speed);
+            _rb = GetComponent<Rigidbody>();
+        }
+        private void FixedUpdate()
+        {
+            _rb.MovePosition(_rb.position + Vector3.forward * Time.fixedDeltaTime * _speed);
         }
 
         private void OnEnable()
@@ -36,11 +44,12 @@ namespace SkyRollerClone.Player
 
         public void StartMoving()
         {
-            _speed = 3f;
+            _speed = _defaultSpeed;
         }
 
         public void StopPlayer()
         {
+            _rb.velocity = Vector3.zero;
             SetSpeed(0f);
         }
     }

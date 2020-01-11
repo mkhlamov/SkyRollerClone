@@ -15,13 +15,13 @@ namespace SkyRollerClone.Player
         private Animator _animator;
         private PlayerInputController _playerInputController;
         [SerializeField]
-        private Collider[] _colliders;
+        private Rigidbody _rb;
 
         #region Monobehaviour
         private void Awake()
         {
             _playerInputController = GetComponent<PlayerInputController>();
-            _colliders = GetComponentsInChildren<Collider>();
+            _rb = GetComponent<Rigidbody>();
         }
         private void Start()
         {
@@ -66,17 +66,11 @@ namespace SkyRollerClone.Player
             _animator.SetTrigger("Excited");
         }
 
-        public void ChangeCollidersActive(bool e)
-        {
-            foreach (var c in _colliders)
-            {
-                c.enabled = e;
-            }
-        }
-
         public void GoToStart()
         {
+            _rb.isKinematic = true;
             gameObject.transform.position = Vector3.zero;
+            _rb.isKinematic = false;
         }
         #endregion
 
@@ -109,11 +103,10 @@ namespace SkyRollerClone.Player
         {
             if (e)
             {
-                Rigidbody rb = _animatedModel.GetComponent<Rigidbody>();
-                Vector3 velocity = (rb != null) ? rb.velocity : (0.1f * Vector3.forward);
-                CopyTransformData(_animatedModel.transform, _ragdoll.transform, velocity);
+                CopyTransformData(_animatedModel.transform, _ragdoll.transform, _rb.velocity);
                 ResetLegs();
             }
+            _rb.isKinematic = e;
             _ragdoll.SetActive(e);
             _animatedModel.SetActive(!e);
         }
@@ -121,7 +114,6 @@ namespace SkyRollerClone.Player
         private void HandeleWin()
         {
             DisableInput();
-            ChangeCollidersActive(false);
             PlayRandomExcitedAnim();
         }
 
@@ -133,7 +125,6 @@ namespace SkyRollerClone.Player
         private void HandleNotStarted()
         {
             ToggleDead(false);
-            ChangeCollidersActive(true);
             DisableInput();
             ResetLegs();
             _animator.ResetTrigger("Excited");
