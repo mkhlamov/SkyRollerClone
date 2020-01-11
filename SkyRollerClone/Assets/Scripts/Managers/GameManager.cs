@@ -87,6 +87,11 @@ namespace SkyRollerClone {
             SetGameNotStarted();
         }
 
+        public void Respawn()
+        {
+            SetGameNotStarted();
+        }
+
         public int GetCurrentLevel()
         {
             return _currentLevel;
