@@ -35,8 +35,7 @@ namespace SkyRollerClone {
             _playerController = FindObjectOfType<PlayerController>();
             _levelBuilder = FindObjectOfType<LevelBuilder>();
 
-            BuildLevel();
-            SetGameNotStarted();
+            RebuildCurrentLevel();
         }
 
         private void OnEnable()
@@ -83,6 +82,11 @@ namespace SkyRollerClone {
             }
             OnLevelUpdated?.Invoke(_currentLevel);
 
+            RebuildCurrentLevel();
+        }
+
+        public void RebuildCurrentLevel()
+        {
             BuildLevel();
             SetGameNotStarted();
         }

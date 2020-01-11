@@ -16,5 +16,17 @@ namespace SkyRollerClone.UI
                 Debug.LogError("GameManager not found");
             }
         }
+
+        public void RebuildCurrentLevel()
+        {
+            if (GameManager.IsInitialized)
+            {
+                GameManager.Instance.RebuildCurrentLevel();
+            }
+            else
+            {
+                Debug.LogError("GameManager not found");
+            }
+        }
     }
 }
