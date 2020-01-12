@@ -13,20 +13,23 @@ namespace SkyRollerClone.Player
         private Animator _animator;
         [SerializeField]
         private float _swipeSensitivity = 100f;
-        // Start is called before the first frame update
+        [SerializeField]
+        private PlayerMovement _playerMovement;
+
         void Awake()
         {
             _animator = GetComponentInChildren<Animator>();
+            _playerMovement = GetComponent<PlayerMovement>();
         }
 
         private void OnEnable()
         {
-            SwipeDetector.OnSwipe += LegSpreadOnSwipe;
+            SwipeDetector.OnSwipe += SwipeHandler;
         }
 
         private void OnDisable()
         {
-            SwipeDetector.OnSwipe -= LegSpreadOnSwipe;
+            SwipeDetector.OnSwipe -= SwipeHandler;
         }
 
         public void ResetLegSpread()
@@ -34,17 +37,25 @@ namespace SkyRollerClone.Player
             _currentLegSpread = 0f;
         }
 
-        private void LegSpreadOnSwipe(SwipeData swipeData)
+        private void SwipeHandler(SwipeData swipeData)
         {
-            if (swipeData.direction == SwipeDirection.Up || swipeData.direction == SwipeDirection.Down)
+            if (swipeData.direction == SwipeDirection.Down)
             {
                 return;
+            } else if (swipeData.direction == SwipeDirection.Up)
+            {
+                _playerMovement.Jump();
             } else
             {
-                _currentLegSpread -= GetLegSpreadDiff(swipeData);
-                _currentLegSpread = Mathf.Clamp01(_currentLegSpread);
-                _animator.SetFloat("LegAngle", _currentLegSpread);
+                LegSpreadOnSwipe(swipeData);
             }
+        }
+
+        private void LegSpreadOnSwipe(SwipeData swipeData)
+        {
+            _currentLegSpread -= GetLegSpreadDiff(swipeData);
+            _currentLegSpread = Mathf.Clamp01(_currentLegSpread);
+            _animator.SetFloat("LegAngle", _currentLegSpread);
         }
 
         private float GetLegSpreadDiff(SwipeData swipeData)

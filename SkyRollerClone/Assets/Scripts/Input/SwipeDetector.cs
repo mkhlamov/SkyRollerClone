@@ -9,8 +9,10 @@ namespace SkyRollerClone.Input
         private Vector2 _upPos;
 
         [SerializeField]
-        private float _minSwipeDist = 20f;
-        
+        private float _minHorizontalSwipeDist = 10f;
+        [SerializeField]
+        private float _minVerticalSwipeDist = 30f;
+
         public static event Action<SwipeData> OnSwipe = delegate { };
 
         void Update()
@@ -77,7 +79,7 @@ namespace SkyRollerClone.Input
 
         private bool IsEnoughSwipeDist()
         {
-            return VerticalDist() > _minSwipeDist || HorizontalDist() > _minSwipeDist;
+            return VerticalDist() > _minVerticalSwipeDist || HorizontalDist() > _minHorizontalSwipeDist;
         }
 
         private float VerticalDist()

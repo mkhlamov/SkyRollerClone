@@ -8,6 +8,16 @@ namespace SkyRollerClone.Player
         private float _defaultSpeed = 3f;
         [SerializeField]
         private float _speed = 3f;
+        [SerializeField]
+        private Transform _groundCheck;
+        [SerializeField]
+        private float _groundDistance = 0.1f;
+        [SerializeField]
+        private float _jumpHeight = 0.1f;
+        [SerializeField]
+        private LayerMask _groundMask;
+        [SerializeField]
+        private bool _isGrounded = true;
         private Rigidbody _rb;
 
         #region Monobehaviour
@@ -19,6 +29,11 @@ namespace SkyRollerClone.Player
         private void FixedUpdate()
         {
             _rb.MovePosition(_rb.position + Vector3.forward * Time.fixedDeltaTime * _speed);
+        }
+
+        private void Update()
+        {
+            _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask, QueryTriggerInteraction.Ignore);
         }
 
         private void OnEnable()
@@ -51,6 +66,16 @@ namespace SkyRollerClone.Player
         {
             _rb.velocity = Vector3.zero;
             SetSpeed(0f);
+        }
+
+        public void Jump()
+        {
+            Debug.Log("JUMP");
+            Debug.Log("_isGrounded" + _isGrounded);
+            if (_isGrounded)
+            {
+                _rb.AddForce(Vector3.up * Mathf.Sqrt(-_jumpHeight * Physics.gravity.y), ForceMode.VelocityChange);
+            }
         }
     }
 }

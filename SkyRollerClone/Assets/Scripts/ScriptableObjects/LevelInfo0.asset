@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1277043b3b5d3e74abaf4978848d9b09, type: 3}
   m_Name: LevelInfo0
   m_EditorClassIdentifier: 
-  numberOfBlocks: 2
+  numberOfBlocks: 5
   _easyBlockProb: 0.99
   _mediumBlockProb: 0.01
   _hardBlockProb: 0

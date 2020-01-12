@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 8161098895212754867}
   - component: {fileID: 8161098895212754866}
   - component: {fileID: 8161098895212754877}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
