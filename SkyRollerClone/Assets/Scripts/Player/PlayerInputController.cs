@@ -44,7 +44,11 @@ namespace SkyRollerClone.Player
                 return;
             } else if (swipeData.direction == SwipeDirection.Up)
             {
-                _playerMovement.Jump();
+                Debug.Log(swipeData.released);
+                if (swipeData.released)
+                {
+                    _playerMovement.Jump();
+                }
             } else
             {
                 LegSpreadOnSwipe(swipeData);

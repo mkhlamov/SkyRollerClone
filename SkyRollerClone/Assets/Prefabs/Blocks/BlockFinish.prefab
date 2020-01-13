@@ -160,6 +160,7 @@ MonoBehaviour:
   _length: 1.85
   _positions: []
   _includeEnd: 1
+  _curved: 0
 --- !u!1 &7398287041998881215
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +230,7 @@ GameObject:
   - component: {fileID: 7398287042253715461}
   - component: {fileID: 7398287042253715460}
   - component: {fileID: 7398287042253715459}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

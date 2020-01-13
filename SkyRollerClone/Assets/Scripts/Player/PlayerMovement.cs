@@ -58,12 +58,6 @@ namespace SkyRollerClone.Player
                         _rb.MovePosition(_rb.position + diff * _speed * Time.fixedDeltaTime);
                         transform.LookAt(_waypoints[_currentWaypointTarget]);
                         //_passedDist += diff.magnitude;
-
-                        Debug.Log(_currentWaypointTarget);
-                        Debug.Log((Vector3.Distance(_rb.position, _waypoints[_currentWaypointTarget])));
-                        Debug.Log("--------------------------");
-
-                        
                     } else
                     {
                         _rb.MovePosition(_rb.position + transform.forward * Time.fixedDeltaTime * _speed);
@@ -131,7 +125,9 @@ namespace SkyRollerClone.Player
         {
             if (_canJump)
             {
+                Debug.Log("Force = " + (Vector3.up * Mathf.Sqrt(-_jumpHeight * Physics.gravity.y)));
                 _rb.AddForce(Vector3.up * Mathf.Sqrt(-_jumpHeight * Physics.gravity.y), ForceMode.VelocityChange);
+                _canJump = false;
             }
         }
 

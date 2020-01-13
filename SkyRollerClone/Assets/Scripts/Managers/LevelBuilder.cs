@@ -86,6 +86,10 @@ namespace SkyRollerClone {
             {
                 _hasTurns = true;
             }
+            if (selectedPrefab == null)
+            {
+                Debug.LogError("No prefab selected!");
+            }
             return selectedPrefab;
         }
 
@@ -102,13 +106,19 @@ namespace SkyRollerClone {
         // Returns new exit
         private Transform AddBlock(GameObject prefab, Transform exit)
         {
-            GameObject newBlockObj = Instantiate(prefab, gameObject.transform);
-            Block block = newBlockObj.GetComponent<Block>();
-            MatchBlocks(exit, block._enter);
-            _waypoints.AddRange(block.GetPositions());
-            _levelLength += block.GetLength();
-            _instantiatedBlocks.Add(newBlockObj);
-            return newBlockObj.GetComponent<Block>()._exit;
+            if (prefab != null)
+            {
+                GameObject newBlockObj = Instantiate(prefab, gameObject.transform);
+                Block block = newBlockObj.GetComponent<Block>();
+                MatchBlocks(exit, block._enter);
+                _waypoints.AddRange(block.GetPositions());
+                _levelLength += block.GetLength();
+                _instantiatedBlocks.Add(newBlockObj);
+                return newBlockObj.GetComponent<Block>()._exit;
+            } else
+            {
+                return exit;
+            }
         }
 
         private void MatchBlocks(Transform exit, Transform enter)

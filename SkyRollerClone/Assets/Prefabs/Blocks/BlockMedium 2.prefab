@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1081135742
 GameObject:
@@ -58,38 +58,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &4682602312271902
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2878394907441739787}
-  m_Layer: 0
-  m_Name: BezierWaypoints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2878394907441739787
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4682602312271902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5642914156308905882
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +88,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &6504999127221941565
 GameObject:
@@ -151,7 +121,7 @@ Transform:
   m_LocalScale: {x: 2, y: 10, z: 4}
   m_Children: []
   m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!33 &3304028261367578473
 MeshFilter:
@@ -224,7 +194,7 @@ GameObject:
   - component: {fileID: 1142363857693982696}
   - component: {fileID: 5302615782591323348}
   m_Layer: 0
-  m_Name: BlockEasy 1
+  m_Name: BlockMedium 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,13 +212,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8161098895212754876}
+  - {fileID: 3296329526149428505}
+  - {fileID: 1152907438914098443}
   - {fileID: 1081135743}
   - {fileID: 5976619067693021783}
   - {fileID: 524580408}
   - {fileID: 8161098895802632278}
-  - {fileID: 2878394907441739787}
-  - {fileID: 3296329526149428505}
-  - {fileID: 1152907438914098443}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -409,7 +378,7 @@ Transform:
   - {fileID: 8161098896410704943}
   - {fileID: 8161098895704837706}
   m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8161098896410704942
 GameObject:
@@ -600,7 +569,7 @@ Transform:
   m_LocalScale: {x: 2, y: 10, z: 3}
   m_Children: []
   m_Father: {fileID: 8161098895146833155}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &5506103587519717938
 MeshFilter:

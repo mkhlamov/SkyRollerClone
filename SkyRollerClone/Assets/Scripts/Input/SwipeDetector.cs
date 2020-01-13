@@ -11,7 +11,7 @@ namespace SkyRollerClone.Input
         [SerializeField]
         private float _minHorizontalSwipeDist = 10f;
         [SerializeField]
-        private float _minVerticalSwipeDist = 30f;
+        private float _minVerticalSwipeDist = 5f;
 
         public static event Action<SwipeData> OnSwipe = delegate { };
 
@@ -28,22 +28,22 @@ namespace SkyRollerClone.Input
                 if (touch.phase == TouchPhase.Moved)
                 {
                     _downPos = touch.position;
-                    DetectSwipe();
+                    DetectSwipe(false);
                 }
 
                 if (touch.phase == TouchPhase.Ended)
                 {
                     _downPos = touch.position;
-                    DetectSwipe();
+                    DetectSwipe(true);
                 }
             }
         }
 
-        private void DetectSwipe()
+        private void DetectSwipe(bool released)
         {
             if (IsEnoughSwipeDist())
             {
-                SendSwipe(GetDirection());
+                SendSwipe(GetDirection(), released);
                 _upPos = _downPos;
             }
         }
@@ -61,13 +61,14 @@ namespace SkyRollerClone.Input
             return direction;
         }
 
-        private void SendSwipe(SwipeDirection direction)
+        private void SendSwipe(SwipeDirection direction, bool released)
         {
             SwipeData swipeData = new SwipeData()
             {
                 start = _downPos,
                 end = _upPos,
-                direction = direction
+                direction = direction,
+                released = released
             };
             OnSwipe?.Invoke(swipeData);
         }
@@ -98,6 +99,8 @@ namespace SkyRollerClone.Input
         public Vector2 start;
         public Vector2 end;
         public SwipeDirection direction;
+        public bool released;
+
     }
 
     public enum SwipeDirection
