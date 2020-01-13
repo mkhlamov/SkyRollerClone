@@ -76,7 +76,7 @@ namespace SkyRollerClone.Player
             gameObject.transform.position = Vector3.zero;
             gameObject.transform.rotation = Quaternion.identity;
             ResetLegs();
-            _playerMovement.ResetCurrentWaypoint();
+            _playerMovement.ResetCurrentWaypointAndPrevPos();
             _rb.isKinematic = false;
         }
         #endregion

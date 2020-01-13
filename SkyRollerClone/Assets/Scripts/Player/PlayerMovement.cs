@@ -57,7 +57,7 @@ namespace SkyRollerClone.Player
                         Vector3 diff = (_waypoints[_currentWaypointTarget] - _rb.position).normalized;
                         _rb.MovePosition(_rb.position + diff * _speed * Time.fixedDeltaTime);
                         transform.LookAt(_waypoints[_currentWaypointTarget]);
-                        //_passedDist += diff.magnitude;
+
                     } else
                     {
                         _rb.MovePosition(_rb.position + transform.forward * Time.fixedDeltaTime * _speed);
@@ -78,13 +78,13 @@ namespace SkyRollerClone.Player
 
         private void Update()
         {
-            //if (_currentWaypointTarget < _waypoints.Count)
-            //{
-            //    transform.LookAt(_waypoints[_currentWaypointTarget]);
-            //}
             _canJump = Physics.CheckSphere(_groundCheck.position, _groundDistance, _canJumpMask, QueryTriggerInteraction.Ignore);
-            Debug.DrawRay(transform.position + Vector3.up * 0.1f, -transform.up);
             _noJumpBlock = Physics.Raycast(transform.position + Vector3.up * 0.1f, -transform.up, 1.0f, _noJumpMask, QueryTriggerInteraction.Ignore);
+            if (_speed > 0f)
+            {
+                _passedDist += (transform.position - _prevPos).magnitude;
+                _prevPos = transform.position;
+            }
         }
 
         private void OnEnable()
@@ -125,7 +125,6 @@ namespace SkyRollerClone.Player
         {
             if (_canJump)
             {
-                Debug.Log("Force = " + (Vector3.up * Mathf.Sqrt(-_jumpHeight * Physics.gravity.y)));
                 _rb.AddForce(Vector3.up * Mathf.Sqrt(-_jumpHeight * Physics.gravity.y), ForceMode.VelocityChange);
                 _canJump = false;
             }
@@ -136,15 +135,22 @@ namespace SkyRollerClone.Player
             return _passedDist;
         }
 
-        public void ResetCurrentWaypoint()
+        public void ResetCurrentWaypointAndPrevPos()
         {
             _currentWaypointTarget = 0;
+            ResetDist();
         }
 
         private void HandleLevelBuilt(List<Vector3> l)
         {
             _waypoints = l;
+            ResetDist();
+        }
+
+        private void ResetDist()
+        {
             _passedDist = 0f;
+            _prevPos = Vector3.zero;
         }
     }
 }

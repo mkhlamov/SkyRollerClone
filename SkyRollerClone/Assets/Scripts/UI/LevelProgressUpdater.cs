@@ -17,7 +17,8 @@ namespace SkyRollerClone.UI
 
         void Update()
         {
-            if (GameManager.Instance.GetGameState() == GameState.RUNNING)
+            GameState curGameState = GameManager.Instance.GetGameState();
+            if (curGameState == GameState.RUNNING || curGameState == GameState.WON)
             {
                 _slider.value = GameManager.Instance.GetProgress();
             } else {

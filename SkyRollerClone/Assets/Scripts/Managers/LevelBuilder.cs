@@ -112,6 +112,7 @@ namespace SkyRollerClone {
                 Block block = newBlockObj.GetComponent<Block>();
                 MatchBlocks(exit, block._enter);
                 _waypoints.AddRange(block.GetPositions());
+                Debug.Log(block.name + " " + block.GetLength());
                 _levelLength += block.GetLength();
                 _instantiatedBlocks.Add(newBlockObj);
                 return newBlockObj.GetComponent<Block>()._exit;

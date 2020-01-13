@@ -40,10 +40,11 @@ namespace SkyRollerClone
                 float t = i / (float)_numberOfSections;
                 _positions.Add(GetBezierPoint(t));
             }
-            if (_includeEnd)
-            {
-                _positions.Add(_end.position);
-            }
+            //if (_includeEnd)
+            //{
+            //    _positions.Add(_end.position);
+            //}
+            _positions.Add(_end.position);
 
             _length = CalculateLength();
         }
