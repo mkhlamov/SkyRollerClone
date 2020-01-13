@@ -36,6 +36,7 @@ namespace SkyRollerClone {
             _playerController = FindObjectOfType<PlayerController>();
             _levelBuilder = FindObjectOfType<LevelBuilder>();
 
+            LoadData();
             RebuildCurrentLevel();
         }
 
@@ -47,11 +48,14 @@ namespace SkyRollerClone {
         private void OnDisable()
         {
             SwipeDetector.OnSwipe -= SwipeHandler;
+            PlayerPrefsManager.Save();
         }
 
+        #region Public Methods
         public void SetGameWon()
         {
             _currentGameState = GameState.WON;
+            PlayerPrefsManager.SetLevel((_currentLevel + 1) % _levelInfos.Count);
             OnGameWon?.Invoke();
         }
 
@@ -81,6 +85,7 @@ namespace SkyRollerClone {
             {
                 _currentLevel += 1;
             }
+            PlayerPrefsManager.SetLevel(_currentLevel);
             OnLevelUpdated?.Invoke(_currentLevel);
 
             RebuildCurrentLevel();
@@ -105,9 +110,12 @@ namespace SkyRollerClone {
         public void AddGem()
         {
             _gemScore += 1;
+            PlayerPrefsManager.SetGems(_gemScore);
             OnGemScoreChanged?.Invoke(_gemScore);
         }
+        #endregion
 
+        #region Private Methods
         private void SetGameNotStarted()
         {
             _currentGameState = GameState.NOTSTARTED;
@@ -141,6 +149,15 @@ namespace SkyRollerClone {
             OnLevelBuilt?.Invoke(_waypoints);
             return _waypoints != null;
         }
+
+        private void LoadData()
+        {
+            _currentLevel = PlayerPrefsManager.GetLevel();
+            _gemScore = PlayerPrefsManager.GetGems();
+            OnLevelUpdated?.Invoke(_currentLevel);
+            OnGemScoreChanged?.Invoke(_gemScore);
+        }
+        #endregion
     }
 
     public enum GameState
