@@ -10,11 +10,18 @@ namespace SkyRollerClone
         [SerializeField]
         private Transform _target;
         [SerializeField]
+        private Transform _lookAtTarget;
+        [SerializeField]
         private Transform _lookAtTargetFinish;
         [SerializeField]
-        private float _smoothModifier = 10f;
+        private float _smoothTime = 0.1f;
+        [SerializeField]
+        private float _distanceDamp = 0.1f;
         [SerializeField]
         private Vector3 _offset = new Vector3(0, 1, -2);
+        [SerializeField]
+        private Vector3 velocity = Vector3.one;
+
         [SerializeField]
         private Vector3 _middlePointOffsetFinish;
         [SerializeField]
@@ -83,9 +90,13 @@ namespace SkyRollerClone
 
         private void MoveToTarget()
         {
-            Vector3 pos = _target.position + _offset;
-            pos = Vector3.Lerp(transform.position, pos, _smoothModifier * Time.deltaTime);
+            //Vector3 pos = _target.position + (_target.rotation * _offset);
+            //pos = Vector3.Lerp(transform.position, pos, 1f);
+            Vector3 pos = _target.position + (_target.rotation * _offset);
+            pos = Vector3.SmoothDamp(transform.position, pos, ref velocity, _distanceDamp);
             transform.position = pos;
+
+            transform.LookAt(_lookAtTargetFinish);
         }
 
         private void MoveByCurve()

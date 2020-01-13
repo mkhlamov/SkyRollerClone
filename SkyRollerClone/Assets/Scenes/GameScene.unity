@@ -511,7 +511,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.3e-43, y: 4.998085, z: 6.3e-43, w: 5.0112724}
+  m_BoundingSphereOverride: {x: 3.0092666e-36, y: 1.009742e-28, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -909,9 +909,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 1783254657}
+  _lookAtTarget: {fileID: 1579758027}
   _lookAtTargetFinish: {fileID: 451160458}
-  _smoothModifier: 10
+  _smoothTime: 0.1
+  _distanceDamp: 0.1
   _offset: {x: 0.3, y: 1.7, z: -4.5}
+  velocity: {x: 1, y: 1, z: 1}
   _middlePointOffsetFinish: {x: 3, y: 1.7, z: -1}
   _endPointOffsetFinish: {x: 1, y: 1.7, z: 4.5}
   _timeToMoveFinish: 2
@@ -1159,6 +1162,12 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &1579758027 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1579758027, guid: a4485bfe4cff88141a820839d4ded35f,
+    type: 3}
+  m_PrefabInstance: {fileID: 976922468441103652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1624529882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,8 +1226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9cbad574281c24180642c44ad6020c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startPos: {fileID: 0}
-  _endPos: {fileID: 0}
+  _waypoints: []
   _levelInfos:
   - {fileID: 11400000, guid: ed3249029a58c9a46a54383fff2ba50d, type: 2}
   - {fileID: 11400000, guid: 87539b77c115e6c498b3f1e241591a60, type: 2}
@@ -1616,9 +1624,12 @@ MonoBehaviour:
   _blockMediumPrefabs:
   - {fileID: 8447890778655225582, guid: 830a63d76e37bd7479be2b19c39ba07f, type: 3}
   - {fileID: 8447890778655225582, guid: da0a98a43ce763847a1e687538bdb443, type: 3}
+  - {fileID: 8161098895146833154, guid: a5bdd18625819df42bcd0efb9bf5ef02, type: 3}
   _blockHardPrefabs:
   - {fileID: 8447890778655225582, guid: 830a63d76e37bd7479be2b19c39ba07f, type: 3}
   _instantiatedBlocks: []
+  _waypoints: []
+  _levelLength: 0
 --- !u!1 &1932911692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1709,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 866509555}
   m_FillRect: {fileID: 1245814693}
   m_HandleRect: {fileID: 866509554}
@@ -2124,6 +2135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522100770016663663, guid: ea4493faf860601449b16063f341e462,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea4493faf860601449b16063f341e462, type: 3}

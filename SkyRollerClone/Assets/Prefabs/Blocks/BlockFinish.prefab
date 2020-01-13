@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2986457489132932917}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7398287041494293995}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &5504747738751393593
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7398287041494293995}
   - component: {fileID: 5906711900051220740}
+  - component: {fileID: 8020324545955091413}
   m_Layer: 0
   m_Name: BlockFinish
   m_TagString: Untagged
@@ -116,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7398287041494293994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7398287042253715458}
@@ -141,6 +142,24 @@ MonoBehaviour:
   _enter: {fileID: 6115246286369555225}
   _exit: {fileID: 1426866015477263167}
   isFinish: 1
+--- !u!114 &8020324545955091413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398287041494293994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6bf0b57621a394c9eccf62f2c7a46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _start: {fileID: 6115246286369555225}
+  _end: {fileID: 1426866015477263167}
+  _numberOfSections: 1
+  _length: 1.85
+  _positions: []
+  _includeEnd: 1
 --- !u!1 &7398287041998881215
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +203,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2.074428, z: 0.1}
+  m_Size: {x: 2, y: 2.074428, z: 0.2}
   m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &7398287041998881186
 MonoBehaviour:
@@ -210,7 +229,7 @@ GameObject:
   - component: {fileID: 7398287042253715461}
   - component: {fileID: 7398287042253715460}
   - component: {fileID: 7398287042253715459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

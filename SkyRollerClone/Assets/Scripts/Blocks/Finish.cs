@@ -8,6 +8,7 @@ namespace SkyRollerClone
     {
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("[Finish] OnTriggerEnter " + other.tag + " " + other.name);
             if (other.CompareTag("Player"))
             {
                 GameManager.Instance.SetGameWon();

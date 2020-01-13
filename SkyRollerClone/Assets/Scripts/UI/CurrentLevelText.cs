@@ -28,7 +28,7 @@ namespace SkyRollerClone.UI
 
         private void UpdateText(int v)
         {
-            _text.text = "Level " + v.ToString();
+            _text.text = "Level " + (v + 1).ToString();
         }
     }
 }

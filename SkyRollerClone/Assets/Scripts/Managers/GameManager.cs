@@ -12,11 +12,10 @@ namespace SkyRollerClone {
         public event Action OnNotStarted;
         public event Action OnGameRunning;
         public event Action<int> OnLevelUpdated;
+        public event Action<List<Vector3>> OnLevelBuilt;
 
         [SerializeField]
-        public Transform _startPos;
-        [SerializeField]
-        public Transform _endPos;
+        private List<Vector3> _waypoints;
         [SerializeField]
         private List<LevelInfo> _levelInfos;
 
@@ -62,7 +61,7 @@ namespace SkyRollerClone {
 
         public float GetProgress()
         {
-            return (_playerMovement.gameObject.transform.position.z) / (_endPos.position.z);
+            return (_playerMovement.GetPassedDist()) / (_levelBuilder.GetLevelLength());
         }
 
         public GameState GetGameState()
@@ -126,12 +125,13 @@ namespace SkyRollerClone {
 
         private bool BuildLevel()
         {
-            _endPos = _levelBuilder.BuildLevel(_levelInfos[_currentLevel]);
-            if (_endPos == null)
+            _waypoints = _levelBuilder.BuildLevel(_levelInfos[_currentLevel]);
+            if (_waypoints == null)
             {
                 Debug.LogError("[GameManager] Couldn't biuld level " + (_currentLevel));
             }
-            return _endPos != null;
+            OnLevelBuilt?.Invoke(_waypoints);
+            return _waypoints != null;
         }
     }
 

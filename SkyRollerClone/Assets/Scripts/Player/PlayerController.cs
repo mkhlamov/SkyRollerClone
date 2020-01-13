@@ -14,13 +14,17 @@ namespace SkyRollerClone.Player
         [SerializeField]
         private Animator _animator;
         private PlayerInputController _playerInputController;
+        private PlayerMovement _playerMovement;
         [SerializeField]
         private Rigidbody _rb;
+        [SerializeField]
+        private List<Vector3> _waypoints;
 
         #region Monobehaviour
         private void Awake()
         {
             _playerInputController = GetComponent<PlayerInputController>();
+            _playerMovement = GetComponent<PlayerMovement>();
             _rb = GetComponent<Rigidbody>();
         }
         private void Start()
@@ -72,6 +76,7 @@ namespace SkyRollerClone.Player
             gameObject.transform.position = Vector3.zero;
             gameObject.transform.rotation = Quaternion.identity;
             ResetLegs();
+            _playerMovement.ResetCurrentWaypoint();
             _rb.isKinematic = false;
         }
         #endregion
