@@ -13,6 +13,7 @@ namespace SkyRollerClone {
         public event Action OnGameRunning;
         public event Action<int> OnLevelUpdated;
         public event Action<List<Vector3>> OnLevelBuilt;
+        public event Action<int> OnGemScoreChanged;
 
         [SerializeField]
         private List<Vector3> _waypoints;
@@ -26,6 +27,7 @@ namespace SkyRollerClone {
         [SerializeField]
         private int _currentLevel = 0;
         private GameState _currentGameState = GameState.NOTSTARTED;
+        private int _gemScore = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -98,6 +100,12 @@ namespace SkyRollerClone {
         public int GetCurrentLevel()
         {
             return _currentLevel;
+        }
+
+        public void AddGem()
+        {
+            _gemScore += 1;
+            OnGemScoreChanged?.Invoke(_gemScore);
         }
 
         private void SetGameNotStarted()
