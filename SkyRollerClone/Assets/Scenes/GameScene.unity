@@ -508,7 +508,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -20, y: -20}
-  m_SizeDelta: {x: 300, y: 140}
+  m_SizeDelta: {x: 150, y: 70}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &324146774
 MonoBehaviour:
@@ -1210,7 +1210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 2065411386}
   _lookAtTargetFinish: {fileID: 2995534616523126899}
-  _smoothTime: 0.1
   _distanceDamp: 0.1
   _offset: {x: 0.3, y: 1.7, z: -4.5}
   velocity: {x: 1, y: 1, z: 1}
