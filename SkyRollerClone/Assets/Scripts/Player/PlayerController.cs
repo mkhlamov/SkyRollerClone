@@ -15,16 +15,16 @@ namespace SkyRollerClone.Player
         private Animator _animator;
         private PlayerInputController _playerInputController;
         private PlayerMovement _playerMovement;
-        [SerializeField]
         private Rigidbody _rb;
-        [SerializeField]
-        private List<Vector3> _waypoints;
+        private TrailRenderer[] _trailRenderers;
 
         #region Monobehaviour
         private void Awake()
         {
             _playerInputController = GetComponent<PlayerInputController>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _animator = GetComponentInChildren<Animator>();
+            _trailRenderers = GetComponentsInChildren<TrailRenderer>();
             _rb = GetComponent<Rigidbody>();
         }
         private void Start()
@@ -110,10 +110,12 @@ namespace SkyRollerClone.Player
         {
             if (e)
             {
-                CopyTransformData(_animatedModel.transform, _ragdoll.transform, _rb.velocity + Vector3.down * 0.01f);
+                //_rb.velocity + Vector3.down * 0.01f
+                _playerMovement.StopPlayer();
+                CopyTransformData(_animatedModel.transform, _ragdoll.transform, Vector3.zero);
                 ResetLegs();
             }
-            _rb.isKinematic = e;
+            //_rb.isKinematic = e;
             _ragdoll.SetActive(e);
             _animatedModel.SetActive(!e);
         }
@@ -122,6 +124,7 @@ namespace SkyRollerClone.Player
         {
             DisableInput();
             PlayRandomExcitedAnim();
+            ToggleLineRenderers(false);
         }
 
         private void HandleLose()
@@ -134,6 +137,7 @@ namespace SkyRollerClone.Player
             ToggleDead(false);
             DisableInput();
             ResetLegs();
+            ToggleLineRenderers(true);
             _animator.ResetTrigger("Excited");
             _animator.SetTrigger("Rolling");
         }
@@ -142,6 +146,18 @@ namespace SkyRollerClone.Player
         {
             _animator.SetFloat("LegAngle", 0f);
             _playerInputController.ResetLegSpread();
+        }
+
+        private void ToggleLineRenderers(bool e)
+        {
+            foreach (TrailRenderer tr in _trailRenderers)
+            {
+                if (!e)
+                {
+                    tr.Clear();
+                }
+                tr.enabled = e;
+            }
         }
         #endregion
     }

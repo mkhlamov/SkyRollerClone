@@ -8,12 +8,11 @@ namespace SkyRollerClone.Player
     public class PlayerInputController : MonoBehaviour
     {
         [SerializeField]
+        private float _swipeSensitivity = 100f;
+        [SerializeField]
         private float _currentLegSpread = 0f;
         [SerializeField]
         private Animator _animator;
-        [SerializeField]
-        private float _swipeSensitivity = 100f;
-        [SerializeField]
         private PlayerMovement _playerMovement;
 
         void Awake()

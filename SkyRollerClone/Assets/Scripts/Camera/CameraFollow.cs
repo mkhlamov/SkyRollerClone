@@ -10,11 +10,7 @@ namespace SkyRollerClone
         [SerializeField]
         private Transform _target;
         [SerializeField]
-        private Transform _lookAtTarget;
-        [SerializeField]
         private Transform _lookAtTargetFinish;
-        [SerializeField]
-        private float _smoothTime = 0.1f;
         [SerializeField]
         private float _distanceDamp = 0.1f;
         [SerializeField]
@@ -29,13 +25,18 @@ namespace SkyRollerClone
         [SerializeField]
         private float _timeToMoveFinish = 2f;
 
-        private bool needToFollow = true;
         private float _tickFinish = 0f;
+        private CameraState _cameraState = CameraState.FOLLOWPLAYER;
 
         #region Monobehaviour
         void LateUpdate()
         {
-            if (needToFollow)
+            if (_cameraState == CameraState.STOPPED)
+            {
+                return;
+            }
+
+            if (_cameraState == CameraState.FOLLOWPLAYER)
             {
                 MoveToTarget();
             }
@@ -43,7 +44,12 @@ namespace SkyRollerClone
 
         private void Update()
         {
-            if (!needToFollow)
+            if (_cameraState == CameraState.STOPPED)
+            {
+                return;
+            }
+
+            if (_cameraState == CameraState.CURVE)
             {
                 MoveByCurve();
             }
@@ -53,6 +59,7 @@ namespace SkyRollerClone
         {
             GameManager.Instance.OnGameWon += HandeleWin;
             GameManager.Instance.OnNotStarted += HandleNotStarted;
+            GameManager.Instance.OnGameLost += HandleLose;
         }
 
         private void OnDisable()
@@ -61,19 +68,20 @@ namespace SkyRollerClone
             {
                 GameManager.Instance.OnGameWon -= HandeleWin;
                 GameManager.Instance.OnNotStarted -= HandleNotStarted;
+                GameManager.Instance.OnGameLost -= HandleLose;
             }
         }
         #endregion
         
         public void Follow()
         {
-            needToFollow = true;
+            _cameraState = CameraState.FOLLOWPLAYER;
         }
 
         public void Unfollow()
         {
             _tickFinish = 0f;
-            needToFollow = false;
+            _cameraState = CameraState.CURVE;
         }
 
         #region Private Methods
@@ -88,11 +96,15 @@ namespace SkyRollerClone
             Follow();
         }
 
+        private void HandleLose()
+        {
+            _cameraState = CameraState.STOPPED;
+        }
+
         private void MoveToTarget()
         {
-            //Vector3 pos = _target.position + (_target.rotation * _offset);
-            //pos = Vector3.Lerp(transform.position, pos, 1f);
             Vector3 pos = _target.position + (_target.rotation * _offset);
+            pos = new Vector3(pos.x, 1.7f, pos.z);
             pos = Vector3.SmoothDamp(transform.position, pos, ref velocity, _distanceDamp);
             transform.position = pos;
 
@@ -105,12 +117,24 @@ namespace SkyRollerClone
             {
                 _tickFinish += Time.deltaTime / _timeToMoveFinish;
 
-                Vector3 p1 = Vector3.Lerp(transform.position, _target.position + _middlePointOffsetFinish, _tickFinish);
-                Vector3 p2 = Vector3.Lerp(_target.position + _middlePointOffsetFinish, _target.position + _endPointOffsetFinish, _tickFinish);
+                Vector3 p1 = Vector3.Lerp(transform.position, ConsiderRotation(_middlePointOffsetFinish), _tickFinish);
+                Vector3 p2 = Vector3.Lerp(ConsiderRotation(_middlePointOffsetFinish), ConsiderRotation(_endPointOffsetFinish), _tickFinish);
                 transform.position = Vector3.Lerp(p1, p2, _tickFinish);
                 transform.LookAt(_lookAtTargetFinish);
             }
         }
+
+        private Vector3 ConsiderRotation(Vector3 offset)
+        {
+            return _target.position + (_target.rotation * offset);
+        }
         #endregion
+    }
+
+    public enum CameraState
+    {
+        STOPPED,
+        FOLLOWPLAYER,
+        CURVE
     }
 }

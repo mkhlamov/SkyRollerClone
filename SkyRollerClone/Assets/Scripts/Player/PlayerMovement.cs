@@ -24,13 +24,9 @@ namespace SkyRollerClone.Player
         [SerializeField]
         private bool _noJumpBlock = true;
         private Rigidbody _rb;
-        [SerializeField]
         private List<Vector3> _waypoints = new List<Vector3>();
-        [SerializeField]
         private int _currentWaypointTarget = 0;
-        [SerializeField]
         private float _passedDist = 0;
-        [SerializeField]
         private Vector3 _prevPos;
 
         #region Monobehaviour
